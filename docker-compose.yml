@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: promptopia-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - promptopia_mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: share_prompt
+
+volumes:
+  promptopia_mongo_data:
