@@ -1,8 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-ink: #111827;
+  --color-muted: #4b5563;
+  --color-accent: #ff5722;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+}
 
 /* 
   Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
@@ -74,15 +89,15 @@
 /* Tailwind Styles */
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-center px-6 sm:px-16;
 }
 
 .black_btn {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+  @apply flex items-center justify-center rounded-full border border-black bg-black px-5 py-1.5 text-center font-inter text-sm text-white transition-all hover:bg-white hover:text-black;
 }
 
 .outline_btn {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
+  @apply flex items-center justify-center rounded-full border border-black bg-transparent px-5 py-1.5 text-center font-inter text-sm text-black transition-all hover:bg-black hover:text-white;
 }
 
 .head_text {
@@ -102,19 +117,19 @@
 }
 
 .desc {
-  @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
+  @apply mt-5 max-w-2xl text-lg text-gray-600 sm:text-xl;
 }
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 font-satoshi text-sm font-medium shadow-lg focus:border-black focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
-  @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+  @apply flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
 }
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+  @apply rounded-xl border border-gray-200 bg-white/20 p-5 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
 }
 
 .prompt_layout {
@@ -123,48 +138,48 @@
 
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mx-auto mt-16 flex w-full max-w-xl flex-col items-center justify-center gap-2;
 }
 
 /* Form Component */
 .form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex h-[200px] w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
 }
 
 .form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
 }
 
 /* Nav Component */
 .logo_text {
-  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+  @apply font-satoshi text-lg font-semibold tracking-wide text-black max-sm:hidden;
 }
 
 .dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
+  @apply absolute right-0 top-full mt-3 flex w-full min-w-[210px] flex-col items-end justify-end gap-2 rounded-lg bg-white p-5;
 }
 
 .dropdown_link {
-  @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
+  @apply font-inter text-sm font-medium text-gray-700 hover:text-gray-500;
 }
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply h-fit w-full flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px];
 }
 
 .flex-center {
-  @apply flex justify-center items-center;
+  @apply flex items-center justify-center;
 }
 
 .flex-start {
-  @apply flex justify-start items-start;
+  @apply flex items-start justify-start;
 }
 
 .flex-end {
-  @apply flex justify-end items-center;
+  @apply flex items-center justify-end;
 }
 
 .flex-between {
-  @apply flex justify-between items-center;
+  @apply flex items-center justify-between;
 }

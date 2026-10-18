@@ -1,16 +1,20 @@
 {
-  "name": "next-app",
+  "name": "promptopia",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down"
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
-    "bcrypt": "^5.1.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "mongodb": "^5.5.0",

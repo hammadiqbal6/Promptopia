@@ -1,30 +1,20 @@
 import Feed from "@components/Feed";
-import { headers } from "next/headers";
 
-async function getPropmts() {
-  const host = headers().get("host");
-  const protocol = headers().get("x-forwarded-proto");
-  const response = await fetch(`${protocol}://${host}/api/prompt`);
-  const data = await response.json();
-  return data;
-}
+export const dynamic = "force-dynamic";
 
-const Home = async () => {
-  const allPosts = await getPropmts();
+const Home = () => {
   return (
-    <section className="flex-center flex flex-col">
+    <section className="flex-center flex w-full flex-col">
       <h1 className="head_text text-center">
-        Discover and share
+        Discover &amp; Share
         <br className="max-md:hidden" />
-        <span className="orange_gradient text-center">AI-Powered Prompts</span>
+        <span className="orange_gradient text-center"> AI-Powered Prompts</span>
       </h1>
       <p className="desc text-center">
-        Fugiat reprehenderit magna magna dolore incididunt proident elit sunt
-        duis ea. Sit in dolore duis laboris mollit pariatur velit officia nulla
-        officia deserunt incididunt ipsum. Proident commodo proident esse ex
-        consectetur. Amet sit labore aute eu enim fugiat id excepteur.
+        Promptopia is an open-source AI prompting tool for the modern world —
+        discover, create, and share creative prompts.
       </p>
-      <Feed allPosts={allPosts} />
+      <Feed />
     </section>
   );
 };
