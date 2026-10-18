@@ -1,4 +1,5 @@
 import Prompt from "@models/prompt";
+import "@models/user";
 import { connectToDB } from "@utils/database";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@app/api/auth/[...nextauth]/route";

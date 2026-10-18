@@ -50,3 +50,7 @@ next-env.d.ts
 .vscode
 *.swp
 *.swo
+
+# local browser tooling
+.playwright-mcp/
+.playwright-mcp/

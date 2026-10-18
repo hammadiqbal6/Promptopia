@@ -22,7 +22,11 @@ Built as a polished Next.js + MongoDB portfolio project — runnable locally wit
 
 ## Screenshots
 
-> Add screenshots from a local run under `docs/` (or the PR description) after `npm run seed`.
+![Promptopia home feed with seeded prompts](docs/home-feed.png)
+
+![Public creator profile](docs/user-profile.png)
+
+![Create prompt requires sign-in when auth is offline](docs/create-prompt-gate.png)
 
 ## Quick start
 
