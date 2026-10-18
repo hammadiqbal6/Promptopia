@@ -1,43 +1,59 @@
-// import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import Profile from "@components/Profile";
-import { notFound } from "next/navigation";
-import { headers } from "next/headers";
+import { useParams, useSearchParams } from "next/navigation";
 
-const getPosts = async (userId) => {
-  const host = headers().get("host");
-  // console.log(host);
-  const response = await fetch(`http://${host}/api/users/${userId}/posts`);
-  const data = await response.json();
-  return data;
-};
+const UserProfile = () => {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const userName = searchParams.get("name") || "User";
+  const userId = params?.id;
 
-const UserProfile = async ({ params, searchParams }) => {
-  const userName = searchParams?.name;
+  const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // const [userPosts, setUserPosts] = useState([]);
+  useEffect(() => {
+    if (!userId) {
+      setLoading(false);
+      setError("User not found.");
+      return;
+    }
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const response = await fetch(`/api/users/${params?.id}/posts`);
-  //     const data = await response.json();
+    let cancelled = false;
 
-  //     setUserPosts(data);
-  //   };
+    const fetchPosts = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`/api/users/${userId}/posts`);
+        if (!response.ok) throw new Error("Failed to load profile prompts.");
+        const data = await response.json();
+        if (!cancelled) setUserPosts(Array.isArray(data) ? data : []);
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || "Failed to load profile.");
+          setUserPosts([]);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
 
-  //   if (params?.id) fetchPosts();
-  // }, [params.id]);
-
-  if (!params.id) {
-    return notFound;
-  }
-
-  const userPosts = await getPosts(params.id);
+    fetchPosts();
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
 
   return (
     <Profile
       name={userName}
-      desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination`}
+      desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination.`}
       data={userPosts}
+      loading={loading}
+      error={error}
     />
   );
 };

@@ -1,22 +1,29 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
-let isConnected = false; // track the connection
+let isConnected = false;
 
 export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
+
   if (isConnected) {
-    console.log("MongoDB is already connected");
     return;
   }
+
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error(
+      "MONGODB_URI is not set. Copy .env.example to .env.local and start MongoDB (see README)."
+    );
+  }
+
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(uri, {
       dbName: "share_prompt",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
     isConnected = true;
-    console.log("mongoDB is connected");
+    console.log("MongoDB connected");
   } catch (error) {
-    console.log("mongoDB is not connected");
+    console.error("MongoDB connection failed:", error.message);
+    throw error;
   }
 };
