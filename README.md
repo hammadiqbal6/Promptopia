@@ -28,6 +28,8 @@ Built as a polished Next.js + MongoDB portfolio project — runnable locally wit
 
 ![Create prompt requires sign-in when auth is offline](docs/create-prompt-gate.png)
 
+![Mobile home feed](docs/mobile-home.png)
+
 ## Quick start
 
 ### 1. Install dependencies

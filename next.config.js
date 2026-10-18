@@ -7,11 +7,27 @@ const nextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
-  webpack(config) {
+  webpack(config, { dev }) {
     config.experiments = {
       ...config.experiments,
       topLevelAwait: true,
     };
+
+    if (dev) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: [
+          "**/node_modules/**",
+          "**/.git/**",
+          "**/.next/**",
+          "/etc/**",
+          "/opt/**",
+          "/root/**",
+          "/run/**",
+        ],
+      };
+    }
+
     return config;
   },
 };

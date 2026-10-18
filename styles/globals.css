@@ -143,11 +143,11 @@ body {
 
 /* Form Component */
 .form_textarea {
-  @apply mt-2 flex h-[200px] w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex h-[200px] w-full rounded-lg border border-transparent bg-white/80 p-3 text-sm text-gray-700 outline-0 focus:border-gray-300 focus:ring-2 focus:ring-black/10;
 }
 
 .form_input {
-  @apply mt-2 flex w-full rounded-lg p-3 text-sm text-gray-500 outline-0;
+  @apply mt-2 flex w-full rounded-lg border border-transparent bg-white/80 p-3 text-sm text-gray-700 outline-0 focus:border-gray-300 focus:ring-2 focus:ring-black/10;
 }
 
 /* Nav Component */
@@ -156,7 +156,7 @@ body {
 }
 
 .dropdown {
-  @apply absolute right-0 top-full mt-3 flex w-full min-w-[210px] flex-col items-end justify-end gap-2 rounded-lg bg-white p-5;
+  @apply absolute right-0 top-full z-50 mt-3 flex min-w-[210px] flex-col items-end justify-end gap-2 rounded-xl border border-gray-200 bg-white p-5 shadow-lg;
 }
 
 .dropdown_link {

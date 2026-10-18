@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = ({ authConfigured = true }) => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropDown, setToggleDropDown] = useState(false);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     if (!authConfigured) {
@@ -26,11 +27,32 @@ const Nav = ({ authConfigured = true }) => {
     })();
   }, [authConfigured]);
 
+  useEffect(() => {
+    if (!toggleDropDown) return;
+
+    const handlePointerDown = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setToggleDropDown(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") setToggleDropDown(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [toggleDropDown]);
+
   const SignInButtons = () => {
     if (!authConfigured) {
       return (
         <span
-          className="rounded-full border border-gray-300 bg-white/70 px-4 py-1.5 text-sm text-gray-500"
+          className="rounded-full border border-gray-300 bg-white/70 px-3 py-1.5 text-xs text-gray-500 sm:px-4 sm:text-sm"
           title="Add Google OAuth credentials to .env.local to enable sign-in"
         >
           Sign-in offline
@@ -98,22 +120,31 @@ const Nav = ({ authConfigured = true }) => {
       </div>
 
       {/* Mobile navigation */}
-      <div className="relative flex sm:hidden">
+      <div className="relative z-50 flex sm:hidden" ref={menuRef}>
         {session?.user ? (
-          <div className="flex">
-            <Image
-              src={session?.user.image || "/assets/images/logo.svg"}
-              width={37}
-              height={37}
-              alt="Profile"
-              className="rounded-full object-cover"
+          <div className="relative flex">
+            <button
+              type="button"
+              className="rounded-full ring-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              aria-expanded={toggleDropDown}
+              aria-haspopup="menu"
+              aria-label="Open account menu"
               onClick={() => setToggleDropDown((prev) => !prev)}
-            />
+            >
+              <Image
+                src={session?.user.image || "/assets/images/logo.svg"}
+                width={37}
+                height={37}
+                alt=""
+                className="rounded-full object-cover"
+              />
+            </button>
             {toggleDropDown && (
-              <div className="dropdown">
+              <div className="dropdown" role="menu">
                 <Link
                   href="/profile"
                   className="dropdown_link"
+                  role="menuitem"
                   onClick={() => setToggleDropDown(false)}
                 >
                   My Profile
@@ -121,12 +152,14 @@ const Nav = ({ authConfigured = true }) => {
                 <Link
                   href="/create-prompt"
                   className="dropdown_link"
+                  role="menuitem"
                   onClick={() => setToggleDropDown(false)}
                 >
                   Create Prompt
                 </Link>
                 <button
                   type="button"
+                  role="menuitem"
                   onClick={() => {
                     setToggleDropDown(false);
                     signOut();
