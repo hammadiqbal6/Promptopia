@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Profile from "@components/Profile";
+import Loader from "@components/Loader";
 import { useParams, useSearchParams } from "next/navigation";
 
-const UserProfile = () => {
+const UserProfileContent = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const userName = searchParams.get("name") || "User";
@@ -55,6 +56,20 @@ const UserProfile = () => {
       loading={loading}
       error={error}
     />
+  );
+};
+
+const UserProfile = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="relative h-40 w-full">
+          <Loader />
+        </div>
+      }
+    >
+      <UserProfileContent />
+    </Suspense>
   );
 };
 
